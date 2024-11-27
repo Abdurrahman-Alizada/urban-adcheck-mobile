@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View,Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
+import Header from '../../components/Header';
 
 export default function JobDetail() {
   const navigation=useNavigation();
