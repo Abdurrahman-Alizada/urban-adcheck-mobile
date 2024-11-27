@@ -20,7 +20,7 @@ const HomeStack = () => {
         component={Main}
         options={{
           headerShown: true,
-          header: props => <Header {...props} />
+          header: props => <Header title='' {...props} />
         }}
       />
       <Stack.Screen
@@ -28,7 +28,7 @@ const HomeStack = () => {
         component={NewRequest}
         options={{
           headerShown: true,
-          header: props => <Header {...props} />
+          header: props => <Header title='New request' {...props} />
         }}
       />
       <Stack.Screen
@@ -52,7 +52,7 @@ const HomeStack = () => {
         component={ProgressJob}
         options={{
           headerShown: true,
-          header: props => <Header {...props} />
+          header: props => <Header title={"In progress"}{...props} />
         }}
       /> 
        <Stack.Screen
@@ -60,7 +60,7 @@ const HomeStack = () => {
         component={HiddenJob}
         options={{
           headerShown: true,
-          header: props => <Header {...props} />
+          header: props => <Header title={"In progress"} {...props} />
         }}
       /> 
         <Stack.Screen
@@ -68,7 +68,7 @@ const HomeStack = () => {
         component={ApproveJob}
         options={{
           headerShown: true,
-          header: props => <Header {...props} />
+          header: props => <Header title={"In progress"} {...props} />
         }}
       /> 
     </Stack.Navigator> 

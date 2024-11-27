@@ -1,22 +1,25 @@
-import {Text, View, Image, TouchableOpacity} from 'react-native';
+
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { useGetAllAvailableJobsForUserQuery } from '../redux/reducers/availablejob/availablejobThunk';
 
 export default function NewRequest({
   acceptLabel = 'Accept',
   rejectLabel = 'Reject',
-  onAccept,
-  onReject,
+  onAccept = () => {},
+  onReject = () => {},
   acceptButtonStyle = {},
   rejectButtonStyle = {},
   acceptTextStyle = {},
   rejectTextStyle = {},
-  priceItemStyle={},
+  priceItemStyle = {},
   priceItem = '$28.00',
-  showQuantity = true, // Default to true
-  // Default value for priceItem
+  showQuantity = true,
+  title = 'Default Title',
 }) {
   const navigation = useNavigation();
+  const { data, error, isLoading } = useGetAllAvailableJobsForUserQuery(null);
 
   const item = {
     id: 1,
@@ -27,11 +30,10 @@ export default function NewRequest({
     color: '#8B5CF6',
     image: require('../assets/icons/NewRequest.png'),
   };
-  // Array to hold the 5 items
-  const items = [item, item, item, item, item, item]; // Repeat the item 5 times
+  const items = [item, item, item, item, item, item];
 
   return (
-    <View style={{flex: 1, padding: 10, backgroundColor: 'white'}}>
+    <View style={{ flex: 1, padding: 10, backgroundColor: 'white' }}>
       {items.map((item, index) => (
         <View
           key={index}
@@ -40,19 +42,17 @@ export default function NewRequest({
             borderRadius: 10,
             padding: 5,
             marginBottom: 15,
-            elevation: 1, // Android shadow
-            shadowColor: '#000', // iOS shadow
-            shadowOffset: {width: 0, height: 1},
+            elevation: 1,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 1 },
             shadowOpacity: 0.3,
             shadowRadius: 3,
           }}>
-          <View style={{flexDirection: 'row', marginBottom: 10}}>
+          <View style={{ flexDirection: 'row', marginBottom: 10 }}>
             <View
               style={{
-                //width: '30%',
                 justifyContent: 'center',
                 alignItems: 'center',
-                //marginRight: 10,
               }}>
               <Image
                 source={item.image}
@@ -80,7 +80,7 @@ export default function NewRequest({
                 }}>
                 {item.title}
               </Text>
-              <Text style={{color: 'black', fontSize: 6}}>{item.Desc}</Text>
+              <Text style={{ color: 'black', fontSize: 6 }}>{item.Desc}</Text>
             </View>
           </View>
 
@@ -92,33 +92,34 @@ export default function NewRequest({
               gap: 10,
               marginLeft: 140,
             }}>
-                          {rejectLabel && (
+            {rejectLabel && (
+              <TouchableOpacity
+                style={{
+                  backgroundColor: 'white',
+                  paddingHorizontal: 16,
+                  borderRadius: 5,
+                  width: 83,
+                  height: 24,
+                  borderColor: 'red',
+                  borderWidth: 1,
+                  alignItems: 'center',
+                  ...rejectButtonStyle,
+                }}
+                onPress={onReject}>
+                <Text
+                  style={{
+                    color: 'red',
+                    fontSize: 12,
+                    fontWeight: '400',
+                    alignSelf: "center",
+                    ...rejectTextStyle,
+                  }}>
+                  {rejectLabel}
+                </Text>
+              </TouchableOpacity>
+            )}
 
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#EF4444',
-                paddingHorizontal: 16,
-                borderRadius: 5,
-                width: 83,
-                height: 24,
-                backgroundColor: 'white',
-                alignItems: 'center',
-                borderColor: 'red',
-                borderWidth: 1,
-                ...rejectButtonStyle,
-
-              }}
-              onPress={onReject}>
-              <Text style={{color: 'red', fontSize: 12, fontWeight: '400',
-
-...rejectTextStyle, 
-
-              }}>
-                {rejectLabel}
-              </Text>
-            </TouchableOpacity>)}
-
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <TouchableOpacity
                 style={{
                   backgroundColor: '#3E9837',
@@ -126,41 +127,46 @@ export default function NewRequest({
                   borderRadius: 5,
                   width: 83,
                   height: 24,
+                  alignSelf: "center",
                   alignItems: 'center',
                   ...acceptButtonStyle,
-
                 }}
                 onPress={() => navigation.navigate('JobDetail')}>
-                <Text style={{color: 'white', fontSize: 12, fontWeight: '400',...acceptTextStyle,  
-}}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontSize: 12,
+                    fontWeight: '400',
+                    ...acceptTextStyle,
+                  }}>
                   {acceptLabel}
                 </Text>
               </TouchableOpacity>
 
-              <View style={{justifyContent: 'center', flexDirection: 'column'}}>
+              <View style={{ justifyContent: 'center', flexDirection: 'column' }}>
                 <Text
                   style={{
                     color: 'black',
                     fontSize: 10,
                     marginTop: -20,
                     fontWeight: '500',
-                    marginLeft: 8,...priceItemStyle,
+                    marginLeft: 8,
+                    alignSelf: "center",
+                    ...priceItemStyle,
                   }}>
-                  {/* $ 20.00 */}
                   {priceItem}
                 </Text>
-                {showQuantity && ( // Conditionally render the quantity
-
-                <Text
-                  style={{
-                    color: 'black',
-                    fontSize: 16,
-                    fontWeight: '500',
-                    marginLeft: 8,
-                    color: '#068179',
-                  }}>
-                  1.00
-                </Text>
+                {showQuantity && (
+                  <Text
+                    style={{
+                      color: 'black',
+                      fontSize: 16,
+                      fontWeight: '500',
+                      marginLeft: 8,
+                      color: '#068179',
+                    }}>
+                    1.00
+                  </Text>
                 )}
               </View>
             </View>
