@@ -1,14 +1,16 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native-paper';
+import Login from './auth/Login/Login';
+import { useNavigation } from '@react-navigation/native';
 
-export default function SplashScreensp({ navigation }) {
+export default function SplashScreen({ navigation }) {
   const [isLoading, setIsLoading] = useState(true);
-
+  // const navigation = useNavigation();
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false); 
-      navigation.replace("Login");
+      navigation.navigate("Auth");
     }, 3000); 
     
     return () => clearTimeout(timer);

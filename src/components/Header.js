@@ -1,16 +1,17 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
+import { Appbar } from 'react-native-paper';
 
 export default function Header({title}) {
   return (
-    <View
+    <Appbar.Header
       style={{
         flexDirection: 'row',
         backgroundColor: '#0000',
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 20,
-        paddingTop: 10,
+        // paddingTop: 10,
         backgroundColor: 'white',
       }}>
       <View
@@ -47,6 +48,6 @@ export default function Header({title}) {
           style={{width: 25, height: 30}}
         />
       </TouchableOpacity>
-    </View>
+    </Appbar.Header>
   );
 }

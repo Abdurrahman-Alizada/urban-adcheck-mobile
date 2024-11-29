@@ -99,6 +99,12 @@
 //     </View>
 //   );
 // }
+
+
+
+
+
+
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
@@ -106,6 +112,7 @@ import { setUserDetails } from '../../../redux/reducers/user/userReducer';
 import { useLoginUserMutation } from '../../../redux/reducers/user/userThunk';
 import { Formik } from 'formik';
 import * as Yup from 'yup'; // For validation schema
+import { useNavigation } from '@react-navigation/native';
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch(); 
@@ -130,6 +137,39 @@ export default function Login({ navigation }) {
       console.error("Login error:", err);
     }
   };
+
+//   const handleSubmit = async (values, actions) => {
+//     try {
+//         const response = await loginUser({
+//             email: values.email,
+//             password: values.password,
+//         });
+//         console.log("res is", response)
+//         if (response.data?.success) {
+//             if (response?.data?.user) {
+//                 const user = response?.data?.user
+//                 dispatch(handleCurrentLoaginUser(user));
+//                 await AsyncStorage.setItem('role', user.role);
+//                 await AsyncStorage.setItem('token', user.token);
+//                 await AsyncStorage.setItem('userId', user.id);
+//                 await AsyncStorage.setItem('email', user.email);
+//                 await AsyncStorage.setItem('fullName', user.fullName);
+//                 await AsyncStorage.setItem('isLoggedIn', 'login');
+//                 actions.resetForm();
+//                 navigation.replace("TabNavigation");
+//             }
+//             if (response?.data?.message) {
+//                 setErrorMessage(response?.data?.message);
+//                 setDialogueVisible(true);
+//             }
+//         } else {
+//             setErrorMessage(response?.error?.data?.message);
+//             setDialogueVisible(true);
+//         }
+//     } finally {
+//         setLoading(false)
+//     }
+// }
 
   return (
     <View style={{
@@ -200,7 +240,11 @@ export default function Login({ navigation }) {
               </Text>
             )}
 
-            <TouchableOpacity style={{ alignSelf: 'flex-end', marginBottom: 20 }}>
+            <TouchableOpacity style={{ alignSelf: 'flex-end', marginBottom: 20 }}
+            onPress={()=>{
+              navigation.navigate("ForgetPassword");
+            }}
+            >
               <Text style={{ color: '#468451', fontWeight: '600', fontSize: 16 }}>
                 Forgot your password?
               </Text>
