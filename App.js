@@ -6,7 +6,7 @@ import HomeStack from './src/navigation/HomeStack';
 import AuthStack from './src/navigation/AuthStack';
 import { Provider } from 'react-redux';  // Import Provider for Redux
 import { store } from './src/redux/store';
-
+import SplashScreen from './src/screen/SplashScreen';
 const Stack = createNativeStackNavigator(); // Correct function
 
 export default function App() {
@@ -14,7 +14,12 @@ export default function App() {
     <Provider store={store}>  
 
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Auth">
+    <Stack.Navigator initialRouteName="SplashScreen">
+        <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="Auth"
           component={AuthStack}
@@ -25,6 +30,7 @@ export default function App() {
           component={HomeStack}
           options={{ headerShown: false }}
         />
+        
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>

@@ -3,12 +3,16 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Main from '../screen/Dashboard/Main/Main';
 import Header from '../components/Header';
-import NewRequest from '../components/NewRequest';
 import JobDetail from '../screen/Dashboard/JobDetail';
 import JobDetailUpload from '../screen/Dashboard/JobDetailUpload';
 import ProgressJob from '../screen/Dashboard/ProgressJob';
-import HiddenJob from '../screen/Dashboard/HiddenJob';
-import ApproveJob from '../screen/Dashboard/ApproveJob';
+
+
+import NewRequestScreen from '../screen/Dashboard/NewRequestScreen';
+import ApproveScreen from '../screen/Dashboard/ApproveScreen';
+import HiddenJobCard from '../components/HiddenJobCard';
+import InProgressJobScreen from '../screen/Dashboard/InProgressJobScreen';
+import HiddenJobScreen from '../screen/Dashboard/HiddenJobScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,14 +28,38 @@ const HomeStack = () => {
         }}
       />
       <Stack.Screen
-        name="NewRequest"
-        component={NewRequest}
+        name="NewRequestScreen"
+        component={NewRequestScreen}
         options={{
           headerShown: true,
           header: props => <Header title='New request' {...props} />
         }}
       />
+         <Stack.Screen
+        name="ApproveScreen"
+        component={ApproveScreen}
+        options={{
+          headerShown: true,
+          header: props => <Header title='In progress' {...props} />
+        }}
+      />
       <Stack.Screen
+        name="HiddenJobScreen"
+        component={HiddenJobScreen}
+        options={{
+          headerShown: true,
+          header: props => <Header title={"In progress"} {...props} />
+        }}
+      /> 
+          <Stack.Screen
+        name="InProgressJobScreen"
+        component={InProgressJobScreen}
+        options={{
+          headerShown: true,
+          header: props => <Header title={"In progress"}{...props} />
+        }}
+      />  
+       <Stack.Screen
         name="JobDetail"
         component={JobDetail}
         options={{
@@ -44,33 +72,19 @@ const HomeStack = () => {
         component={JobDetailUpload}
         options={{
           headerShown: true,
-          header: props => <Header {...props} />
-        }}
-      />
-         <Stack.Screen
-        name="ProgressJob"
-        component={ProgressJob}
-        options={{
-          headerShown: true,
-          header: props => <Header title={"In progress"}{...props} />
+          header: props => <Header title={"Job Details"} {...props} />
         }}
       /> 
-       <Stack.Screen
-        name="HiddenJob"
-        component={HiddenJob}
-        options={{
-          headerShown: true,
-          header: props => <Header title={"In progress"} {...props} />
-        }}
-      /> 
-        <Stack.Screen
+      
+       
+        {/* <Stack.Screen
         name="ApproveJob"
         component={ApproveJob}
         options={{
           headerShown: true,
           header: props => <Header title={"In progress"} {...props} />
         }}
-      /> 
+      />  */}
     </Stack.Navigator> 
   );
 };
